@@ -12,13 +12,13 @@ namespace FleetSim
         static void Main(string[] args)
         {
             Flotila flotila = new Flotila();
-            //flotila.VytvorVelitelskouLod();
             while (true)
             {
                 Console.WriteLine("1 - Pridat lod");
                 Console.WriteLine("2 - Vydat misi");
                 Console.WriteLine("3 - Vypis info");
                 Console.WriteLine("4 - Doplnit posadku");
+                Console.WriteLine("5 - Vylepšit dolet")
 
                 int.TryParse(Console.ReadLine(), out int volba);
 
@@ -52,6 +52,20 @@ namespace FleetSim
                         if (lod.Nazev == nazev)
                         {
                             lod.NalozPosadku(pocet);
+                        }
+                    }
+                }
+                else if (volba == 5)
+                {
+                    Console.WriteLine("Zadej nazev lode");
+                    string nazev = Console.ReadLine();
+                    Console.WriteLine("Zadej pridani doletu");
+                    double pridaniLY = double.Parse(Console.ReadLine());
+                    foreach (Lod lod in flotila.list)
+                    {
+                        if (lod.Nazev == nazev)
+                        {
+                            lod.UpgradujDolet(pridaniLY);
                         }
                     }
                 }
@@ -89,6 +103,7 @@ namespace FleetSim
             Console.WriteLine("Aktualni pocet posadky: " + this.AktualniPocetPosadky);
             Console.WriteLine("Dolet: " + this.DoletY);
             Console.WriteLine("Typ lode: " + this.TypLode);
+            Console.WriteLine();
         }
 
         public void ProvedMisi(string cil, double vzdalenost)
@@ -105,6 +120,11 @@ namespace FleetSim
                 }
             }
         }
+
+        public void UpgradujDolet(double pridaniLY)
+        {
+            DoletY = +pridaniLY;
+        }
     }
 
     class Flotila
@@ -120,6 +140,7 @@ namespace FleetSim
             Console.WriteLine("3 - Bojova");
             Console.WriteLine("4 - Pruzkumna");
             Console.WriteLine("5 - Vlastni");
+
             int.TryParse(Console.ReadLine(), out int volba);
             if (volba == 1)
             {
@@ -196,6 +217,7 @@ namespace FleetSim
             Console.WriteLine("2 - Transportni");
             Console.WriteLine("3 - Bojova");
             Console.WriteLine("4 - Pruzkumna");
+
             int.TryParse(Console.ReadLine(), out int volbaTyp);
             if (volbaTyp == 1)
             {
